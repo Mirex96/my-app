@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+﻿import React, { useState, useMemo } from 'react';
 import { useAppContext } from '../../context/AppContext';
 import styles from './FlashCard.module.css';
 
@@ -18,7 +18,7 @@ const FlashCard = ({ questions }) => {
         return questions.filter(q => q.topic === selectedTopic);
     }, [questions, selectedTopic]);
 
-    // SM-2 сортировка: сначала те, у которых дата следующего повторения раньше (просроченные)
+    // SM-2 СЃРѕСЂС‚РёСЂРѕРІРєР°: СЃРЅР°С‡Р°Р»Р° С‚Рµ, Сѓ РєРѕС‚РѕСЂС‹С… РґР°С‚Р° СЃР»РµРґСѓСЋС‰РµРіРѕ РїРѕРІС‚РѕСЂРµРЅРёСЏ СЂР°РЅСЊС€Рµ (РїСЂРѕСЃСЂРѕС‡РµРЅРЅС‹Рµ)
     const sortedQuestions = useMemo(() => {
         const progress = state.progress || {};
         const now = Date.now();
@@ -63,7 +63,7 @@ const FlashCard = ({ questions }) => {
     };
 
     const resetProgress = () => {
-        if (window.confirm('Сбросить всю статистику обучения?')) {
+        if (window.confirm('РЎР±СЂРѕСЃРёС‚СЊ РІСЃСЋ СЃС‚Р°С‚РёСЃС‚РёРєСѓ РѕР±СѓС‡РµРЅРёСЏ?')) {
             dispatch({ type: 'RESET_PROGRESS' });
             setCurrentIndex(0);
             setIsFlipped(false);
@@ -71,17 +71,17 @@ const FlashCard = ({ questions }) => {
     };
 
     if (!total) {
-        return <div style={{ padding: '20px', color: '#000' }}>Нет вопросов по выбранной теме.</div>;
+        return <div style={{ padding: '20px', color: '#000' }}>РќРµС‚ РІРѕРїСЂРѕСЃРѕРІ РїРѕ РІС‹Р±СЂР°РЅРЅРѕР№ С‚РµРјРµ.</div>;
     }
 
     return (
         <div className={styles.container}>
             <div className={styles.filter}>
-                <label>Тема: </label>
+                <label>РўРµРјР°: </label>
                 <select value={selectedTopic} onChange={(e) => setSelectedTopic(e.target.value)}>
                     {topics.map(topic => (
                         <option key={topic} value={topic}>
-                            {topic === 'all' ? 'Все темы' : topic}
+                            {topic === 'all' ? 'Р’СЃРµ С‚РµРјС‹' : topic}
                         </option>
                     ))}
                 </select>
@@ -91,31 +91,31 @@ const FlashCard = ({ questions }) => {
                 {!isFlipped ? (
                     <div className={styles.front}>
                         <p className={styles.question}>{current.question}</p>
-                        <p className={styles.hint}>Нажмите, чтобы увидеть ответ</p>
+                        <p className={styles.hint}>РќР°Р¶РјРёС‚Рµ, С‡С‚РѕР±С‹ СѓРІРёРґРµС‚СЊ РѕС‚РІРµС‚</p>
                     </div>
                 ) : (
                     <div className={styles.back}>
-                        <p><strong>Правильный ответ:</strong> {current.options[current.correct]}</p>
+                        <p><strong>РџСЂР°РІРёР»СЊРЅС‹Р№ РѕС‚РІРµС‚:</strong> {current.options[current.correct]}</p>
                         <p className={styles.explanation}>{current.explanation}</p>
-                        <p className={styles.lawRef}>📚 {current.lawRef}</p>
+                        <p className={styles.lawRef}>рџ“љ {current.lawRef} {current.lawRef && (<span> (<a href={`https://yandex.ru/search/?text=${encodeURIComponent(current.lawRef)}`} target="_blank" rel="noopener noreferrer">открыть в Яндексе</a>)</span>)}</p>
                     </div>
                 )}
             </div>
 
             {isFlipped && (
                 <div className={styles.buttons}>
-                    <button onClick={handleDontKnow} className={styles.dontKnowBtn}>❌ Не знаю</button>
-                    <button onClick={handleKnow} className={styles.knowBtn}>✅ Знаю</button>
+                    <button onClick={handleDontKnow} className={styles.dontKnowBtn}>вќЊ РќРµ Р·РЅР°СЋ</button>
+                    <button onClick={handleKnow} className={styles.knowBtn}>вњ… Р—РЅР°СЋ</button>
                 </div>
             )}
 
             <div className={styles.navigation}>
-                <button onClick={goToPrev} className={styles.navBtn}>◀</button>
+                <button onClick={goToPrev} className={styles.navBtn}>в—Ђ</button>
                 <span className={styles.counter}>{currentIndex + 1} / {total}</span>
-                <button onClick={goToNext} className={styles.navBtn}>▶</button>
+                <button onClick={goToNext} className={styles.navBtn}>в–¶</button>
             </div>
 
-            <button onClick={resetProgress} className={styles.resetBtn}>Сбросить прогресс</button>
+            <button onClick={resetProgress} className={styles.resetBtn}>РЎР±СЂРѕСЃРёС‚СЊ РїСЂРѕРіСЂРµСЃСЃ</button>
         </div>
     );
 };

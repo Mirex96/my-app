@@ -19,3 +19,9 @@ button {
     button:hover {
         background: #0f2b42;
     }
+
+.lawRef a {
+    color: #007bff !important;
+    text-decoration: underline !important;
+    cursor: pointer;
+}

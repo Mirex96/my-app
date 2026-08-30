@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+﻿import React, { useState, useMemo, useEffect } from 'react';
 import { useAppContext } from '../../context/AppContext';
 import styles from './Test.module.css';
 
@@ -112,21 +112,21 @@ const Test = ({ questions }) => {
     };
 
     if (!total) {
-        return <div style={{ padding: '20px', color: '#000' }}>Нет вопросов по выбранным критериям.</div>;
+        return <div style={{ padding: '20px', color: '#000' }}>РќРµС‚ РІРѕРїСЂРѕСЃРѕРІ РїРѕ РІС‹Р±СЂР°РЅРЅС‹Рј РєСЂРёС‚РµСЂРёСЏРј.</div>;
     }
 
     if (isFinished) {
         const percent = Math.round((score / total) * 100);
         return (
             <div className={styles.result}>
-                <h2>🏁 {timeLeft === 0 && useTimer ? 'Время вышло!' : 'Экзамен завершён!'}</h2>
-                <p>Ваш результат: {score} из {total} ({percent}%)</p>
+                <h2>рџЏЃ {timeLeft === 0 && useTimer ? 'Р’СЂРµРјСЏ РІС‹С€Р»Рѕ!' : 'Р­РєР·Р°РјРµРЅ Р·Р°РІРµСЂС€С‘РЅ!'}</h2>
+                <p>Р’Р°С€ СЂРµР·СѓР»СЊС‚Р°С‚: {score} РёР· {total} ({percent}%)</p>
                 <p>
-                    {percent === 100 && '🏆 Отлично! Вы готовы к реальной работе!'}
-                    {percent >= 80 && percent < 100 && '👍 Хорошо, но есть пробелы, повторите сложные темы.'}
-                    {percent < 80 && '📖 Нужно серьёзно повторить материал.'}
+                    {percent === 100 && 'рџЏ† РћС‚Р»РёС‡РЅРѕ! Р’С‹ РіРѕС‚РѕРІС‹ Рє СЂРµР°Р»СЊРЅРѕР№ СЂР°Р±РѕС‚Рµ!'}
+                    {percent >= 80 && percent < 100 && 'рџ‘Ќ РҐРѕСЂРѕС€Рѕ, РЅРѕ РµСЃС‚СЊ РїСЂРѕР±РµР»С‹, РїРѕРІС‚РѕСЂРёС‚Рµ СЃР»РѕР¶РЅС‹Рµ С‚РµРјС‹.'}
+                    {percent < 80 && 'рџ“– РќСѓР¶РЅРѕ СЃРµСЂСЊС‘Р·РЅРѕ РїРѕРІС‚РѕСЂРёС‚СЊ РјР°С‚РµСЂРёР°Р».'}
                 </p>
-                <button onClick={resetTest} className={styles.nextBtn}>Пройти заново</button>
+                <button onClick={resetTest} className={styles.nextBtn}>РџСЂРѕР№С‚Рё Р·Р°РЅРѕРІРѕ</button>
             </div>
         );
     }
@@ -139,50 +139,50 @@ const Test = ({ questions }) => {
         <div className={styles.testContainer}>
             <div className={styles.filterRow}>
                 <div className={styles.filterGroup}>
-                    <label>Тема: </label>
+                    <label>РўРµРјР°: </label>
                     <select value={selectedTopic} onChange={(e) => setSelectedTopic(e.target.value)}>
                         {topics.map(topic => (
                             <option key={topic} value={topic}>
-                                {topic === 'all' ? 'Все темы' : topic}
+                                {topic === 'all' ? 'Р’СЃРµ С‚РµРјС‹' : topic}
                             </option>
                         ))}
                     </select>
                 </div>
                 <div className={styles.filterGroup}>
-                    <label>Кол-во: </label>
+                    <label>РљРѕР»-РІРѕ: </label>
                     <select value={questionCount} onChange={(e) => setQuestionCount(Number(e.target.value))}>
                         <option value={5}>5</option>
                         <option value={10}>10</option>
                         <option value={20}>20</option>
                         <option value={50}>50</option>
-                        <option value={0}>Все</option>
+                        <option value={0}>Р’СЃРµ</option>
                     </select>
                 </div>
                 <div className={styles.filterGroup}>
-                    <label>Режим: </label>
+                    <label>Р РµР¶РёРј: </label>
                     <select value={mode} onChange={(e) => setMode(e.target.value)}>
-                        <option value="all">Все</option>
-                        <option value="wrong">Ошибки</option>
-                        <option value="review">Повторение</option>
+                        <option value="all">Р’СЃРµ</option>
+                        <option value="wrong">РћС€РёР±РєРё</option>
+                        <option value="review">РџРѕРІС‚РѕСЂРµРЅРёРµ</option>
                     </select>
                 </div>
                 <div className={styles.filterGroup}>
                     <label>
                         <input type="checkbox" checked={useTimer} onChange={(e) => setUseTimer(e.target.checked)} />
-                        Таймер (5 мин)
+                        РўР°Р№РјРµСЂ (5 РјРёРЅ)
                     </label>
                 </div>
             </div>
 
             {useTimer && (
                 <div style={{ textAlign: 'center', fontSize: '24px', fontWeight: 'bold', color: timeLeft < 60 ? '#dc3545' : '#000' }}>
-                    ⏱ {timeStr}
+                    вЏ± {timeStr}
                 </div>
             )}
 
             <div className={styles.header}>
-                <span>Вопрос {currentIndex + 1} из {total}</span>
-                <span>✅ {score}</span>
+                <span>Р’РѕРїСЂРѕСЃ {currentIndex + 1} РёР· {total}</span>
+                <span>вњ… {score}</span>
             </div>
 
             <h3 className={styles.question}>{current.question}</h3>
@@ -208,9 +208,9 @@ const Test = ({ questions }) => {
             </div>
             {showExplanation && (
                 <div className={styles.explanation}>
-                    <strong>{selected === current.correct ? '✅ Верно!' : '❌ Неверно!'}</strong>
+                    <strong>{selected === current.correct ? 'вњ… Р’РµСЂРЅРѕ!' : 'вќЊ РќРµРІРµСЂРЅРѕ!'}</strong>
                     <p>{current.explanation}</p>
-                    <p className={styles.lawRef}>📚 Источник: {current.lawRef}</p>
+                    <p className={styles.lawRef}>рџ“љ РСЃС‚РѕС‡РЅРёРє: {current.lawRef} {current.lawRef && (<span> (<a href={`https://yandex.ru/search/?text=${encodeURIComponent(current.lawRef)}`} target="_blank" rel="noopener noreferrer">открыть в Яндексе</a>)</span>)}</p>
                 </div>
             )}
         </div>

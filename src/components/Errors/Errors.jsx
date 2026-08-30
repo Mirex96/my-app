@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+﻿import React, { useState, useMemo } from 'react';
 import { useAppContext } from '../../context/AppContext';
 import { questions } from '../../data/initialQuestions';
 import Test from '../Test/Test';
@@ -9,7 +9,7 @@ const Errors = () => {
     const { state } = useAppContext();
     const [mode, setMode] = useState('list'); // 'list', 'test', 'flashcard'
 
-    // Вопросы с ошибками (wrongCount > correctCount)
+    // Р’РѕРїСЂРѕСЃС‹ СЃ РѕС€РёР±РєР°РјРё (wrongCount > correctCount)
     const errorQuestions = useMemo(() => {
         return questions.filter(q => {
             const stats = state.progress[q.id];
@@ -22,8 +22,8 @@ const Errors = () => {
     if (totalErrors === 0) {
         return (
             <div className={styles.container}>
-                <h2>✅ Мои ошибки</h2>
-                <p>У вас нет вопросов с ошибками! Отлично!</p>
+                <h2>вњ… РњРѕРё РѕС€РёР±РєРё</h2>
+                <p>РЈ РІР°СЃ РЅРµС‚ РІРѕРїСЂРѕСЃРѕРІ СЃ РѕС€РёР±РєР°РјРё! РћС‚Р»РёС‡РЅРѕ!</p>
             </div>
         );
     }
@@ -31,7 +31,7 @@ const Errors = () => {
     if (mode === 'test') {
         return (
             <div className={styles.container}>
-                <button onClick={() => setMode('list')} className={styles.backBtn}>← Назад к списку</button>
+                <button onClick={() => setMode('list')} className={styles.backBtn}>в†ђ РќР°Р·Р°Рґ Рє СЃРїРёСЃРєСѓ</button>
                 <Test questions={errorQuestions} />
             </div>
         );
@@ -40,7 +40,7 @@ const Errors = () => {
     if (mode === 'flashcard') {
         return (
             <div className={styles.container}>
-                <button onClick={() => setMode('list')} className={styles.backBtn}>← Назад к списку</button>
+                <button onClick={() => setMode('list')} className={styles.backBtn}>в†ђ РќР°Р·Р°Рґ Рє СЃРїРёСЃРєСѓ</button>
                 <FlashCard questions={errorQuestions} />
             </div>
         );
@@ -48,11 +48,11 @@ const Errors = () => {
 
     return (
         <div className={styles.container}>
-            <h2>📝 Мои ошибки</h2>
-            <p>Всего вопросов с ошибками: <strong>{totalErrors}</strong></p>
+            <h2>рџ“ќ РњРѕРё РѕС€РёР±РєРё</h2>
+            <p>Р’СЃРµРіРѕ РІРѕРїСЂРѕСЃРѕРІ СЃ РѕС€РёР±РєР°РјРё: <strong>{totalErrors}</strong></p>
             <div className={styles.actions}>
-                <button onClick={() => setMode('test')} className={styles.actionBtn}>Пройти как тест</button>
-                <button onClick={() => setMode('flashcard')} className={styles.actionBtn}>Пройти как карточки</button>
+                <button onClick={() => setMode('test')} className={styles.actionBtn}>РџСЂРѕР№С‚Рё РєР°Рє С‚РµСЃС‚</button>
+                <button onClick={() => setMode('flashcard')} className={styles.actionBtn}>РџСЂРѕР№С‚Рё РєР°Рє РєР°СЂС‚РѕС‡РєРё</button>
             </div>
             <ul className={styles.list}>
                 {errorQuestions.map((q, idx) => {
@@ -61,7 +61,7 @@ const Errors = () => {
                         <li key={q.id} className={styles.item}>
                             <span className={styles.num}>{idx + 1}.</span>
                             <span className={styles.questionText}>{q.question}</span>
-                            <span className={styles.wrongBadge}>Ошибок: {stats.wrongCount}</span>
+                            <span className={styles.wrongBadge}>РћС€РёР±РѕРє: {stats.wrongCount}</span>
                         </li>
                     );
                 })}
