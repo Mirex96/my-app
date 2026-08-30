@@ -27,17 +27,30 @@ function App() {
         </nav>
       </header>
       <main style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
-        {currentMode === 'test' && <Test questions={questions} />}
-        {currentMode === 'flashcard' && <FlashCard questions={questions} />}
-        {currentMode === 'exam' && <Exam />}
-        {currentMode === 'cvoexam' && <div style={{padding:"20px",textAlign:"center"}}><h2 style={{color:"green"}}>ЦВО РАБОТАЕТ!</h2></div>}
-        {currentMode === 'errors' && <Errors />}
-        {currentMode === 'progress' && <Progress />}
-        {currentMode === 'reference' && <Reference />}
+        <div style={{ display: currentMode === 'test' ? 'block' : 'none' }}>
+          <Test questions={questions} />
+        </div>
+        <div style={{ display: currentMode === 'flashcard' ? 'block' : 'none' }}>
+          <FlashCard questions={questions} />
+        </div>
+        <div style={{ display: currentMode === 'exam' ? 'block' : 'none' }}>
+          <Exam />
+        </div>
+        <div style={{ display: currentMode === 'cvoexam' ? 'block' : 'none' }}>
+          <CvoExam />
+        </div>
+        <div style={{ display: currentMode === 'errors' ? 'block' : 'none' }}>
+          <Errors />
+        </div>
+        <div style={{ display: currentMode === 'progress' ? 'block' : 'none' }}>
+          <Progress />
+        </div>
+        <div style={{ display: currentMode === 'reference' ? 'block' : 'none' }}>
+          <Reference />
+        </div>
       </main>
     </div>
   );
 }
 
 export default App;
-
