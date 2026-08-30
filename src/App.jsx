@@ -30,7 +30,7 @@ function App() {
         {currentMode === 'test' && <Test questions={questions} />}
         {currentMode === 'flashcard' && <FlashCard questions={questions} />}
         {currentMode === 'exam' && <Exam />}
-        {currentMode === 'cvoexam' && <CvoExam />}
+        {currentMode === 'cvoexam' && <div style={{padding:"20px",textAlign:"center"}}><h2 style={{color:"green"}}>ЦВО РАБОТАЕТ!</h2></div>}
         {currentMode === 'errors' && <Errors />}
         {currentMode === 'progress' && <Progress />}
         {currentMode === 'reference' && <Reference />}
@@ -40,3 +40,4 @@ function App() {
 }
 
 export default App;
+
