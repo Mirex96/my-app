@@ -11,14 +11,6 @@ import './index.css';
 function App() {
   const [currentMode, setCurrentMode] = useState('test');
 
-  // Простой блок для ЦВО (без компонента)
-  const CvoExamBlock = (
-    <div style={{ padding: '20px', textAlign: 'center' }}>
-      <h2 style={{ color: '#1a3c5e' }}>🎓 Экзамен в ЦВО</h2>
-      <p style={{ fontSize: '18px' }}>ЦВО РАБОТАЕТ!</p>
-    </div>
-  );
-
   return (
     <div className="app" style={{ background: '#f0f2f5', minHeight: '100vh', color: '#000' }}>
       <header style={{ padding: '20px', background: '#1a3c5e', color: 'white', display: 'flex', gap: '20px', flexWrap: 'wrap', alignItems: 'center' }}>
@@ -37,7 +29,7 @@ function App() {
         {currentMode === 'test' && <Test questions={questions} />}
         {currentMode === 'flashcard' && <FlashCard questions={questions} />}
         {currentMode === 'exam' && <Exam />}
-        {currentMode === 'cvoexam' && CvoExamBlock}
+        {currentMode === 'cvoexam' && <div style={{padding:'20px',textAlign:'center'}}><h2 style={{color:'green'}}>🎓 ЦВО РАБОТАЕТ!</h2><p>Здесь будет билет и комиссия</p></div>}
         {currentMode === 'errors' && <Errors />}
         {currentMode === 'progress' && <Progress />}
         {currentMode === 'reference' && <Reference />}
