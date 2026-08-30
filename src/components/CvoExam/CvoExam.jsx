@@ -165,7 +165,7 @@ const CvoExam = () => {
           </div>
           <div className={styles.setting}>
             <label>Тема:</label>
-            <select value={selectedTopic} onChange={(e) => setSelectedTopic(e.target.value)}>
+            <select value={selectedTopic} onChange={(e) => setSelectedTopic(e.target.value))}>
               {topics.map(t => (
                 <option key={t} value={t}>{t === 'all' ? 'Все темы' : t}</option>
               ))}

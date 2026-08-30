@@ -210,7 +210,7 @@ const Test = ({ questions }) => {
                 <div className={styles.explanation}>
                     <strong>{selected === current.correct ? 'вњ… Р’РµСЂРЅРѕ!' : 'вќЊ РќРµРІРµСЂРЅРѕ!'}</strong>
                     <p>{current.explanation}</p>
-                    <p className={styles.lawRef}>рџ“љ РСЃС‚РѕС‡РЅРёРє: {current.lawRef} {current.lawRef && (<span> (<a href={`https://yandex.ru/search/?text=${encodeURIComponent(current.lawRef)}`} target="_blank" rel="noopener noreferrer">открыть в Яндексе</a>)</span>)} {current.lawRef && (<span> (<a href={`https://yandex.ru/search/?text=${encodeURIComponent(current.lawRef)}`} target="_blank" rel="noopener noreferrer">открыть в Яндексе</a>)</span>)} {current.lawRef && (<span> (<a href={`https://yandex.ru/search/?text=${encodeURIComponent(current.lawRef)}`} target="_blank" rel="noopener noreferrer">открыть в Яндексе</a>)</span>)} {current.lawRef && (<span> (<a href={`https://yandex.ru/search/?text=${encodeURIComponent(current.lawRef)}`} target="_blank" rel="noopener noreferrer">открыть в Яндексе</a>)</span>)}</p>
+                    <p className={styles.lawRef}>рџ“љ РСЃС‚РѕС‡РЅРёРє: {current.lawRef} {current.lawRef && (<span> (<a href={`https://yandex.ru/search/?text=${encodeURIComponent(current.lawRef)}`} target="_blank" rel="noopener noreferrer">открыть в Яндексе</a>)</span>)} {current.lawRef && (<span> (<a href={`https://yandex.ru/search/?text=${encodeURIComponent(current.lawRef)}`} target="_blank" rel="noopener noreferrer">открыть в Яндексе</a>)</span>)} {current.lawRef && (<span> (<a href={`https://yandex.ru/search/?text=${encodeURIComponent(current.lawRef)}`} target="_blank" rel="noopener noreferrer">открыть в Яндексе</a>)</span>)} {current.lawRef && (<span> (<a href={`https://yandex.ru/search/?text=${encodeURIComponent(current.lawRef)}`} target="_blank" rel="noopener noreferrer">открыть в Яндексе</a>)</span>)} {current.lawRef && (<span> (<a href={`https://yandex.ru/search/?text=${encodeURIComponent(current.lawRef)}`} target="_blank" rel="noopener noreferrer">открыть в Яндексе</a>)</span>)}</p>
                 </div>
             )}
         </div>
@@ -218,6 +218,7 @@ const Test = ({ questions }) => {
 };
 
 export default Test;
+
 
 
 
