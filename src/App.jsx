@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+﻿import React, { useState } from 'react';
 import { questions } from './data/initialQuestions';
 import Test from './components/Test/Test';
 import FlashCard from './components/FlashCard/FlashCard';
@@ -10,16 +10,14 @@ import './index.css';
 
 function App() {
   const [currentMode, setCurrentMode] = useState('test');
-  const [CvoExamComponent, setCvoExamComponent] = useState(null);
 
-  // Динамически загружаем ЦВО
-  useEffect(() => {
-    import('./components/CvoExam/CvoExam.jsx').then(module => {
-      setCvoExamComponent(() => module.default);
-    });
-  }, []);
-
-  const CvoExam = CvoExamComponent || (() => <div>Загрузка...</div>);
+  // Простой блок для ЦВО (без компонента)
+  const CvoExamBlock = (
+    <div style={{ padding: '20px', textAlign: 'center' }}>
+      <h2 style={{ color: '#1a3c5e' }}>🎓 Экзамен в ЦВО</h2>
+      <p style={{ fontSize: '18px' }}>ЦВО РАБОТАЕТ!</p>
+    </div>
+  );
 
   return (
     <div className="app" style={{ background: '#f0f2f5', minHeight: '100vh', color: '#000' }}>
@@ -39,7 +37,7 @@ function App() {
         {currentMode === 'test' && <Test questions={questions} />}
         {currentMode === 'flashcard' && <FlashCard questions={questions} />}
         {currentMode === 'exam' && <Exam />}
-        {currentMode === 'cvoexam' && <CvoExam />}
+        {currentMode === 'cvoexam' && CvoExamBlock}
         {currentMode === 'errors' && <Errors />}
         {currentMode === 'progress' && <Progress />}
         {currentMode === 'reference' && <Reference />}
