@@ -97,7 +97,7 @@ const FlashCard = ({ questions }) => {
                     <div className={styles.back}>
                         <p><strong>РџСЂР°РІРёР»СЊРЅС‹Р№ РѕС‚РІРµС‚:</strong> {current.options[current.correct]}</p>
                         <p className={styles.explanation}>{current.explanation}</p>
-                        <p className={styles.lawRef}>рџ“љ {current.lawRef} {current.lawRef && (<span> (<a href={`https://yandex.ru/search/?text=${encodeURIComponent(current.lawRef)}`} target="_blank" rel="noopener noreferrer">открыть в Яндексе</a>)</span>)}</p>
+                        <p className={styles.lawRef}>рџ“љ {current.lawRef} {current.lawRef && (<span> (<a href={`https://yandex.ru/search/?text=${encodeURIComponent(current.lawRef)}`} target="_blank" rel="noopener noreferrer">открыть в Яндексе</a>)</span>)} {current.lawRef && (<span> (<a href={`https://yandex.ru/search/?text=${encodeURIComponent(current.lawRef)}`} target="_blank" rel="noopener noreferrer">открыть в Яндексе</a>)</span>)}</p>
                     </div>
                 )}
             </div>
@@ -121,3 +121,4 @@ const FlashCard = ({ questions }) => {
 };
 
 export default FlashCard;
+
