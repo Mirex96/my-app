@@ -18,23 +18,48 @@ const FlashCard = ({ questions }) => {
         return questions.filter(q => q.topic === selectedTopic);
     }, [questions, selectedTopic]);
 
-    // Сортируем по сложности (прогресс)
+    // SM-2 сортировка: сначала те, у которых дата следующего повторения раньше (просроченные)
     const sortedQuestions = useMemo(() => {
         const progress = state.progress || {};
+        const now = Date.now();
         return [...filteredQuestions].sort((a, b) => {
-            const aData = progress[a.id] || { correctCount: 0, wrongCount: 0 };
-            const bData = progress[b.id] || { correctCount: 0, wrongCount: 0 };
-            const aScore = (aData.wrongCount + 1) / (aData.correctCount + 1);
-            const bScore = (bData.wrongCount + 1) / (bData.correctCount + 1);
-            return bScore - aScore;
+            const aStats = progress[a.id] || { lastSeen: 0, interval: 1 };
+            const bStats = progress[b.id] || { lastSeen: 0, interval: 1 };
+            const aNext = aStats.lastSeen + aStats.interval * 24 * 60 * 60 * 1000;
+            const bNext = bStats.lastSeen + bStats.interval * 24 * 60 * 60 * 1000;
+            const aOverdue = aNext < now;
+            const bOverdue = bNext < now;
+            if (aOverdue && !bOverdue) return -1;
+            if (!aOverdue && bOverdue) return 1;
+            return aNext - bNext;
         });
     }, [filteredQuestions, state.progress]);
 
     const current = sortedQuestions[currentIndex];
+    const total = sortedQuestions.length;
 
-    const handleNext = () => {
+    const handleKnow = () => {
+        const isCorrect = true;
+        const rating = 5;
+        dispatch({ type: 'UPDATE_PROGRESS', payload: { id: current.id, isCorrect, rating } });
+        goToNext();
+    };
+
+    const handleDontKnow = () => {
+        const isCorrect = false;
+        const rating = 1;
+        dispatch({ type: 'UPDATE_PROGRESS', payload: { id: current.id, isCorrect, rating } });
+        goToNext();
+    };
+
+    const goToNext = () => {
         setIsFlipped(false);
-        setCurrentIndex((prev) => (prev + 1) % sortedQuestions.length);
+        setCurrentIndex((prev) => (prev + 1) % total);
+    };
+
+    const goToPrev = () => {
+        setIsFlipped(false);
+        setCurrentIndex((prev) => (prev - 1 + total) % total);
     };
 
     const resetProgress = () => {
@@ -45,8 +70,8 @@ const FlashCard = ({ questions }) => {
         }
     };
 
-    if (!sortedQuestions.length) {
-        return <div>Нет вопросов по выбранной теме.</div>;
+    if (!total) {
+        return <div style={{ padding: '20px', color: '#000' }}>Нет вопросов по выбранной теме.</div>;
     }
 
     return (
@@ -61,6 +86,7 @@ const FlashCard = ({ questions }) => {
                     ))}
                 </select>
             </div>
+
             <div className={styles.card} onClick={() => setIsFlipped(!isFlipped)}>
                 {!isFlipped ? (
                     <div className={styles.front}>
@@ -75,8 +101,20 @@ const FlashCard = ({ questions }) => {
                     </div>
                 )}
             </div>
-            <button onClick={handleNext} className={styles.nextBtn}>Следующая карточка</button>
-            <p className={styles.counter}>{currentIndex + 1} / {sortedQuestions.length}</p>
+
+            {isFlipped && (
+                <div className={styles.buttons}>
+                    <button onClick={handleDontKnow} className={styles.dontKnowBtn}>❌ Не знаю</button>
+                    <button onClick={handleKnow} className={styles.knowBtn}>✅ Знаю</button>
+                </div>
+            )}
+
+            <div className={styles.navigation}>
+                <button onClick={goToPrev} className={styles.navBtn}>◀</button>
+                <span className={styles.counter}>{currentIndex + 1} / {total}</span>
+                <button onClick={goToNext} className={styles.navBtn}>▶</button>
+            </div>
+
             <button onClick={resetProgress} className={styles.resetBtn}>Сбросить прогресс</button>
         </div>
     );

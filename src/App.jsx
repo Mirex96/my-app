@@ -4,6 +4,8 @@ import Test from './components/Test/Test';
 import FlashCard from './components/FlashCard/FlashCard';
 import Progress from './components/Progress/Progress';
 import Reference from './components/Reference/Reference';
+import Errors from './components/Errors/Errors';
+import Exam from './components/Exam/Exam';
 import './index.css';
 
 function App() {
@@ -16,6 +18,8 @@ function App() {
                 <nav style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginLeft: 'auto' }}>
                     <button onClick={() => setCurrentMode('test')}>Тест</button>
                     <button onClick={() => setCurrentMode('flashcard')}>Карточки</button>
+                    <button onClick={() => setCurrentMode('exam')}>Экзамен</button>
+                    <button onClick={() => setCurrentMode('errors')}>Ошибки</button>
                     <button onClick={() => setCurrentMode('progress')}>Прогресс</button>
                     <button onClick={() => setCurrentMode('reference')}>Справочник</button>
                 </nav>
@@ -23,6 +27,8 @@ function App() {
             <main style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
                 {currentMode === 'test' && <Test questions={questions} />}
                 {currentMode === 'flashcard' && <FlashCard questions={questions} />}
+                {currentMode === 'exam' && <Exam />}
+                {currentMode === 'errors' && <Errors />}
                 {currentMode === 'progress' && <Progress />}
                 {currentMode === 'reference' && <Reference />}
             </main>

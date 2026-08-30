@@ -3,7 +3,7 @@ import { useAppContext } from '../../context/AppContext';
 import { questions } from '../../data/initialQuestions';
 
 const Progress = () => {
-    const { state } = useAppContext();
+    const { state, dispatch } = useAppContext();
     const progress = state.progress || {};
     const daily = state.daily || { date: null, count: 0 };
     const today = new Date().toDateString();
@@ -76,6 +76,39 @@ const Progress = () => {
         URL.revokeObjectURL(link.href);
     };
 
+    const exportData = () => {
+        const data = JSON.stringify(state, null, 2);
+        const blob = new Blob([data], { type: 'application/json' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'progress.json';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(link.href);
+    };
+
+    const importData = (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+            try {
+                const data = JSON.parse(ev.target.result);
+                if (data.progress && typeof data.progress === 'object') {
+                    dispatch({ type: 'SET_PROGRESS', payload: { progress: data.progress, daily: data.daily || { date: null, count: 0 } } });
+                    alert('✅ Прогресс успешно импортирован!');
+                } else {
+                    alert('❌ Неверный формат файла: отсутствует поле "progress".');
+                }
+            } catch (err) {
+                alert('❌ Ошибка при чтении файла: ' + err.message);
+            }
+        };
+        reader.readAsText(file);
+        e.target.value = '';
+    };
+
     return (
         <div style={{ padding: '20px', color: '#000' }}>
             <h2>📊 Статистика обучения</h2>
@@ -134,6 +167,18 @@ const Progress = () => {
             <button onClick={exportErrors} style={{ marginTop: '20px', padding: '10px 20px', background: '#dc3545', color: '#fff', border: 'none', borderRadius: '6px', cursor: 'pointer' }}>
                 ⬇️ Скачать список ошибок
             </button>
+
+            <hr style={{ margin: '24px 0' }} />
+            <h3>💾 Экспорт / импорт данных</h3>
+            <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                <button onClick={exportData} style={{ padding: '10px 20px', background: '#28a745', color: '#fff', border: 'none', borderRadius: '6px', cursor: 'pointer' }}>
+                    ⬇️ Скачать прогресс (JSON)
+                </button>
+                <label style={{ padding: '10px 20px', background: '#17a2b8', color: '#fff', borderRadius: '6px', cursor: 'pointer' }}>
+                    ⬆️ Загрузить прогресс
+                    <input type="file" accept=".json" onChange={importData} style={{ display: 'none' }} />
+                </label>
+            </div>
         </div>
     );
 };
